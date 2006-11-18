@@ -4,19 +4,19 @@
 "    Copyright: Copyright (C) 2006 Martin Krischik
 " Name Of File: plugin/fonts.vim
 " Last Changed: Monday, 09 May 2006
-"      Version: 1.3
-"	 Usage: copy to plugin directory
-"      History: 
+"      Version: 1.4
+"      History: 01.11.2006 MK Sun Solaris Support 
 "	   URL: http://www.vim.org/account/profile.php?user=7818
+"	 Usage: copy to plugin directory
 "-------------------------------------------------------------------------------
 
-if exists("s:loaded_fonts") || 
+if exists("g:loaded_fonts") || 
     \ ! has ("gui_running")
     finish
 else
-    let s:loaded_fonts=1
+    let g:loaded_fonts=1
 
-    if has ("vms")
+    if has ("vms") || has ("gui_motif")
 	let g:Font_L1="-misc-fixed-medium-r-normal-*-14-*-*-*-c-*-iso8859-1"
 	let g:Font_L2="-misc-fixed-medium-r-normal-*-18-*-*-*-c-*-iso8859-1"
 	let g:Font_L3="-misc-fixed-medium-r-normal-*-20-*-*-*-c-*-iso8859-1"
@@ -43,8 +43,8 @@ else
 	let g:Font_U1=g:Font_L1
 	let g:Font_U2=g:Font_L2
 	let g:Font_U3=g:Font_L3
-	let g:Font_S1="132 50"
-	let g:Font_S2="96 45"
+	let g:Font_S1="132 48"
+	let g:Font_S2="96 42"
 	let g:Font_S3="96 38"
     elseif has ("gui_kde")
 	let g:Font_L1="Bitstream Vera Sans Mono/9/-1/5/50/0/0/0/1/0"
@@ -82,12 +82,12 @@ else
 	end
     endfunction Set_Font
 
-    autocmd EncodingChanged * :call <SID>Set_Font (0)
+    autocmd EncodingChanged * :call s:Set_Font (0)
 
     if &diff
-	autocmd GUIEnter * :call <SID>Set_Font (1)
+	autocmd GUIEnter * :call s:Set_Font (1)
     else
-	autocmd GUIEnter * :call <SID>Set_Font (2)
+	autocmd GUIEnter * :call s:Set_Font (2)
     endif
 
     execute "nnoremap <unique> " . escape(g:mapleader . "1" , '\') .	  " :call <SID>Set_Font (1) <CR>"
